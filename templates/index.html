@@ -24,9 +24,17 @@
           {{ movie.industry }}
         </span>
         {% if movie.poster %}
-          <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+          <img 
+            src="{{ movie.poster }}" 
+            alt="{{ movie.title }}"
+            loading="lazy"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <div class="poster-fallback" style="display:none; background: linear-gradient(135deg, #7c5cf0, #1a1033); width:100%; height:100%; align-items:center; justify-content:center; padding:10px; text-align:center; font-size:13px; font-weight:600;">
+            {{ movie.title }}
+          </div>
         {% else %}
-          <div style="background: linear-gradient(135deg, {{ movie.genres | genre_color }}); width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:10px; text-align:center;">
+          <div style="background: linear-gradient(135deg, #7c5cf0, #1a1033); width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:10px; text-align:center; font-size:13px; font-weight:600;">
             {{ movie.title }}
           </div>
         {% endif %}
