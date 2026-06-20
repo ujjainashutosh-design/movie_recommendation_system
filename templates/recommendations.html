@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="section-title" style="margin-top:0;">recommended for you</div>
+<p style="color:#a89fd0; font-size:13px; margin-bottom:18px;">based on movies you rated 4★ and above</p>
+
+<div class="movie-grid">
+  {% for movie in movies %}
+  <a href="{{ url_for('movie_detail', movie_id=movie.id) }}">
+    <div class="movie-card">
+      <div class="poster" style="background: linear-gradient(135deg, {{ movie.genres | genre_color }});">
+        <span class="industry-badge {{ 'badge-bollywood' if movie.industry == 'Bollywood' else 'badge-hollywood' }}">{{ movie.industry }}</span>
+        {{ movie.title }}
+      </div>
+      <div class="info">
+        <h4>{{ movie.title }}</h4>
+        <p>
+          {% if movie.match_score is defined %}{{ movie.match_score }}% match{% else %}<span class="star">★</span> {{ movie.rating }}{% endif %}
+        </p>
+      </div>
+    </div>
+  </a>
+  {% else %}
+  <p style="color:#a89fd0;">rate some movies first to get personalized picks!</p>
+  {% endfor %}
+</div>
+{% endblock %}

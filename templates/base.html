@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CineAI - Movie Recommendation System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">🎬 CineAI</div>
+    <div class="nav-links">
+      <a href="{{ url_for('home') }}">home</a>
+      <a href="{{ url_for('recommendations') }}">for you</a>
+      <a href="{{ url_for('view_watchlist') }}">watchlist</a>
+      {% if user %}
+        <a href="{{ url_for('logout') }}">logout ({{ user }})</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">login</a>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

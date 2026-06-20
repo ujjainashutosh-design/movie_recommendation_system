@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-box">
+  <h2>welcome to CineAI</h2>
+  <p style="color:#a89fd0; font-size:13px; margin-top:6px;">enter a username to continue</p>
+  <form method="POST">
+    <input type="text" name="username" placeholder="your name" required>
+    <button class="btn" style="width:100%;" type="submit">login</button>
+  </form>
+</div>
+{% endblock %}
