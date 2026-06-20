@@ -1,34 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
+
 <form action="{{ url_for('search') }}" method="GET" class="search-bar">
-  <input type="text" name="q" placeholder="search movies, genres..." value="{{ search_query or '' }}">
+  <input type="text" name="q" placeholder="Search movies, genres..." value="{{ search_query or '' }}">
   <button type="submit" style="background:none;border:none;color:#fff;cursor:pointer;">🔍</button>
 </form>
 
 <div class="filter-tabs">
-  <a href="{{ url_for('home') }}" class="{{ 'active' if not industry_filter else '' }}">all</a>
-  <a href="{{ url_for('filter_industry', industry='Hollywood') }}" class="{{ 'active' if industry_filter == 'Hollywood' else '' }}">hollywood</a>
-  <a href="{{ url_for('filter_industry', industry='Bollywood') }}" class="{{ 'active' if industry_filter == 'Bollywood' else '' }}">bollywood</a>
+  <a href="{{ url_for('home') }}" class="{{ 'active' if not industry_filter else '' }}">All</a>
+  <a href="{{ url_for('filter_industry', industry='Hollywood') }}" class="{{ 'active' if industry_filter == 'Hollywood' else '' }}">Hollywood</a>
+  <a href="{{ url_for('filter_industry', industry='Bollywood') }}" class="{{ 'active' if industry_filter == 'Bollywood' else '' }}">Bollywood</a>
 </div>
 
-<div class="section-title">{{ page_title or 'top picks' }}</div>
+<div class="section-title">{{ page_title or 'Top Picks' }}</div>
 
 <div class="movie-grid">
   {% for movie in movies %}
   <a href="{{ url_for('movie_detail', movie_id=movie.id) }}">
     <div class="movie-card">
-        <div class="poster">
-  <span class="industry-badge {{ 'badge-bollywood' if movie.industry == 'Bollywood' else 'badge-hollywood' }}">{{ movie.industry }}</span>
-  <img src="https://placehold.co/300x450/1a1033/ffffff?font=poppins&text={{ movie.title | urlencode }}" alt="{{ movie.title }}">
-</div>
-    <div class="info">
+
+      <div class="poster">
+        <span class="industry-badge {{ 'badge-bollywood' if movie.industry == 'Bollywood' else 'badge-hollywood' }}">
+          {{ movie.industry }}
+        </span>
+        {% if movie.poster %}
+          <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+        {% else %}
+          <div style="background: linear-gradient(135deg, {{ movie.genres | genre_color }}); width:100%; height:100%; display:flex; align-items:center; justify-content:center; padding:10px; text-align:center;">
+            {{ movie.title }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="info">
         <h4>{{ movie.title }}</h4>
         <p><span class="star">★</span> {{ movie.rating }} &middot; {{ movie.genres.split(' ')[0] }}</p>
       </div>
+
     </div>
   </a>
   {% else %}
-  <p style="color:#a89fd0;">no movies found.</p>
+  <p style="color:#a89fd0;">No movies found.</p>
   {% endfor %}
 </div>
+
 {% endblock %}

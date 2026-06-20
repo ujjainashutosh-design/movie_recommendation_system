@@ -91,7 +91,6 @@ a { color: inherit; text-decoration: none; }
   font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.3px;
-  box-shadow: 0 0 0 rgba(124,92,240,0);
   transition: box-shadow 0.25s, transform 0.15s;
 }
 
@@ -148,17 +147,21 @@ a { color: inherit; text-decoration: none; }
 }
 
 .movie-card .poster {
-  height: 130px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 10px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
+  height: 260px;
   position: relative;
   overflow: hidden;
+  padding: 0;
+}
+
+.movie-card .poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.movie-card:hover .poster img {
+  transform: scale(1.05);
 }
 
 .movie-card .poster::after {
@@ -299,6 +302,7 @@ a { color: inherit; text-decoration: none; }
   border: 1px solid rgba(255,255,255,0.15);
   color: #b6acdb;
   transition: all 0.2s;
+  text-transform: capitalize;
 }
 
 .filter-tabs a.active {
@@ -308,11 +312,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .filter-tabs a:hover { border-color: #7c5cf0; }
-.navbar .nav-links a,
-.navbar .logo,
-.filter-tabs a {
-  text-transform: capitalize;
-}
+
+.navbar .nav-links a { text-transform: capitalize; }
 
 .section-title,
 .login-box h2,
